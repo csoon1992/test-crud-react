@@ -4,7 +4,7 @@ export function Search({ value, onChange }) {
   return (
     <Form.Control
       value={value ?? ''}
-      onChange={(e) => onChange(e.target.value.trim())}
+      onChange={(e) => onChange(e.target.value)}
       placeholder="search..."
     />
   );

@@ -9,6 +9,10 @@ import {
 import { Form } from 'react-bootstrap';
 import { useState } from 'react';
 import { Search } from '../components/data/search';
+import { AddTodoButton } from '../components/todo/addButton';
+import { CompletedFilter } from '../components/todo/completedFilter';
+import { useFilters } from '../hooks/filterhook';
+import { DataSelect } from '../components/data/dataSelect';
 
 const columnHelper = createColumnHelper();
 
@@ -25,6 +29,7 @@ const columns = [
 export function Todos() {
   const [search, setSearch] = useState();
   const { data, isLoading } = useGetAllTodosQuery(search);
+  const [filters, addFilter] = useFilters();
 
   const table = useReactTable({
     data: data ?? [],
@@ -38,8 +43,20 @@ export function Todos() {
 
   return (
     <div>
-      <div className="mb-3">
+      <div>
+        <h2>Filtros</h2>
+        <DataSelect
+          onChange={(value) => addFilter('title', value)}
+          labelKey="title"
+          valueKey="title"
+          fetchFn={useGetAllTodosQuery}
+        />
+        <CompletedFilter onChange={(value) => addFilter('completed', value)} />
+        {JSON.stringify(filters)}
+      </div>
+      <div className="d-flex flex-row">
         <Search value={search} onChange={setSearch} />
+        <AddTodoButton />
       </div>
       <Table striped bordered hover>
         <thead>

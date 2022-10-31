@@ -15,7 +15,18 @@ export const todosSlice = createApi({
         }
 
         return finalUrl;
-      }
+      },
+      providesTags: ['Todos']
+    }),
+    addTodo: builder.mutation({
+      query(body) {
+        return {
+          url: `todos`,
+          method: 'POST',
+          body
+        };
+      },
+      invalidatesTags: ['Todos']
     })
   })
 });
@@ -23,4 +34,4 @@ export const todosSlice = createApi({
 // Action creators are generated for each case reducer function
 //export const { increment, decrement, incrementByAmount } = todosSlice.actions;
 
-export const { useGetAllTodosQuery } = todosSlice;
+export const { useGetAllTodosQuery, useAddTodoMutation } = todosSlice;
