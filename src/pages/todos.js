@@ -12,7 +12,7 @@ import { Search } from '../components/data/search';
 import { AddTodoButton } from '../components/todo/addButton';
 import { CompletedFilter } from '../components/todo/completedFilter';
 import { useFilters } from '../hooks/filterhook';
-import { DataSelect } from '../components/data/dataSelect';
+import { Combobox } from '../components/data/combobox';
 
 const columnHelper = createColumnHelper();
 
@@ -45,11 +45,11 @@ export function Todos() {
     <div>
       <div>
         <h2>Filtros</h2>
-        <DataSelect
-          onChange={(value) => addFilter('title', value)}
+        <Combobox
+          onChange={(selected) => addFilter('title', selected?.title)}
           labelKey="title"
-          valueKey="title"
           fetchFn={useGetAllTodosQuery}
+          placeholder="elige uno..."
         />
         <CompletedFilter onChange={(value) => addFilter('completed', value)} />
         {JSON.stringify(filters)}

@@ -6,13 +6,16 @@ export const todosSlice = createApi({
   baseQuery: baseQuery,
   endpoints: (builder) => ({
     getAllTodos: builder.query({
-      query: (search) => {
+      query: (params) => {
+        const { search, page } = params ?? { search: null, page: 1 };
         const baseUrl = 'todos';
         let finalUrl = baseUrl;
 
         if (search && search?.trim() !== '') {
           finalUrl += `?title=${search.trim()}`;
         }
+
+        console.log({ search, page, finalUrl });
 
         return finalUrl;
       },
